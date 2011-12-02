@@ -1,4 +1,4 @@
-#!/usr/nin/perl
+#!/usr/bin/perl
 # matchtest.plx
 use warnings;
 use strict;
