@@ -1,10 +1,28 @@
 #!/usr/bin/perl
-use LWP::Simple;
-use HTML::HeadParser;
-use HTML::FormatText::WithLinks;
-use Encode qw/encode decode/;
-print "Robot crawler!\n";
-my$url='http://freshair.npr.org/dayFA.cfm?todayDate=current' 
-my $content=get $url;
-die "Couldn'tget $url" unless defined $content;
-print $content;
+use WWW::Mechanize; 
+use LWP::Debug qw(+); 
+
+$username = "txdywy"; 
+$password = "wytxdywy"; 
+
+my $mech = WWW::Mechanize->new(); 
+
+   $mech->cookie_jar(HTTP::Cookies->new()); 
+   $mech->get( "https://us-amazon.icims.com/jobs/submittal" ); 
+    
+   #Get ADMIN-ID 
+   $mech->content() =~ /name=\"ADMIN\" value=\"([^\"]+)/g; 
+   $hiddenField = $1; 
+       
+   #Fill form 
+   $mech->submit_form( 
+                 form_name => "action", 
+                   fields      => { 
+                     ADMIN => $hiddenField, 
+                     username   => $username, 
+                     password => $password}, 
+                   button => 'login'); 
+
+    #Print site            
+   print $mech->content(); 
+print $content,"\n";
